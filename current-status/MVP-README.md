@@ -69,8 +69,6 @@ Entregar **insights acionáveis diários** através de **UM agente consolidador*
 3. **Meta Ads** - Performance Facebook/Instagram ads
 4. **Google Calendar** - Agendamentos + disponibilidade
 5. **WhatsApp Business** - Comunicação pacientes + engagement
-
-### **📊 Fase 2 - Expansão:**
 6. **RD Station CRM** - CRM brasileiro popular (mercado local)
 
 **Dados Processados:**
@@ -135,30 +133,6 @@ Entregar **insights acionáveis diários** através de **UM agente consolidador*
 - ✅ **Escalabilidade** (até 10 clientes MVP)
 - ✅ **Validação** conceito antes versão completa
 
----
-
-## 📋 STATUS ATUAL
-
-### **✅ IMPLEMENTADO (100%):**
-- Backend Node.js + Express + Supabase
-- Frontend React + TypeScript + Tailwind CSS
-- Dashboard Cliente (interface médicos)
-- Design system SevenScale (#FF7A00, #1A202C)
-- Infraestrutura de desenvolvimento
-
-### **⚙️ EM DESENVOLVIMENTO:**
-- Simplificação frontend (7→4 páginas)
-- Agente Consolidador (Node.js + GPT-4)
-- Integrações APIs (6 conectores)
-- Setup automático clientes
-
-### **📅 PRÓXIMOS PASSOS:**
-1. **Documentação completa** MVP (esta pasta)
-2. **Implementação integrações** core (APIs)
-3. **Agente consolidador** GPT-4
-4. **Testes** com clientes beta
-
----
 
 ## 🗂️ DOCUMENTAÇÃO
 
