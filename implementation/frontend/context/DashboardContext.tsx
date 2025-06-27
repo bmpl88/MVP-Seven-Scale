@@ -13,11 +13,11 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const loadInitialData = async () => {
       try {
-        console.log('Iniciando carregamento inicial dos dados do dashboard...');
+        console.log('🚀 Iniciando carregamento inicial dos dados do dashboard OTIMIZADO...');
         await dashboardHook.loadAllDashboardData();
-        console.log('Carregamento inicial dos dados do dashboard concluído');
+        console.log('✅ Carregamento inicial dos dados do dashboard OTIMIZADO concluído');
       } catch (error) {
-        console.error('Erro no carregamento inicial dos dados do dashboard:', error);
+        console.error('❌ Erro no carregamento inicial dos dados do dashboard OTIMIZADO:', error);
         // Não impede a aplicação de continuar funcionando
       } finally {
         setInitialLoadComplete(true);
@@ -31,42 +31,42 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!initialLoadComplete) return;
     
-    console.log('Configurando atualização automática dos dados do dashboard...');
+    console.log('🔄 Configurando atualização automática dos dados do dashboard OTIMIZADO...');
     
-    // Configurar intervalo para atualização automática (a cada 5 minutos)
+    // ✅ Configurar intervalo para atualização automática (a cada 10 minutos - menos frequente)
     const intervalId = setInterval(async () => {
       try {
-        console.log('Executando atualização automática dos dados do dashboard...');
+        console.log('🔄 Executando atualização automática dos dados do dashboard OTIMIZADO...');
         await dashboardHook.loadAllDashboardData();
       } catch (error) {
-        console.error('Erro na atualização automática dos dados do dashboard:', error);
+        console.error('❌ Erro na atualização automática dos dados do dashboard OTIMIZADO:', error);
         // Não impede a aplicação de continuar funcionando
       }
-    }, 5 * 60 * 1000);
+    }, 10 * 60 * 1000); // ✅ 10 minutos (menos agressivo)
     
     return () => {
-      console.log('Limpando intervalo de atualização automática');
+      console.log('🔄 Limpando intervalo de atualização automática');
       clearInterval(intervalId);
     };
   }, [initialLoadComplete, dashboardHook.loadAllDashboardData]);
   
-  // Refresh automático do status do agente a cada 30 segundos
+  // ✅ OTIMIZADO: Refresh automático do status do agente a cada 10 segundos (menos agressivo)
   useEffect(() => {
     if (!initialLoadComplete) return;
     
-    console.log('🤖 Configurando refresh automático do status do agente...');
+    console.log('🤖 Configurando refresh OTIMIZADO do status do agente...');
     
     const agentRefreshId = setInterval(async () => {
       try {
-        console.log('🤖 Atualizando status do agente...');
+        console.log('🤖 Atualizando status OTIMIZADO do agente...');
         await dashboardHook.loadAgentStatus();
       } catch (error) {
-        console.error('🤖 Erro no refresh do status do agente:', error);
+        console.error('🤖❌ Erro no refresh OTIMIZADO do status do agente:', error);
       }
-    }, 30 * 1000); // 30 segundos
+    }, 10 * 1000); // ✅ 10 segundos (menos agressivo que 30s)
     
     return () => {
-      console.log('🤖 Limpando intervalo de refresh do agente');
+      console.log('🤖 Limpando intervalo de refresh OTIMIZADO do agente');
       clearInterval(agentRefreshId);
     };
   }, [initialLoadComplete, dashboardHook.loadAgentStatus]);
