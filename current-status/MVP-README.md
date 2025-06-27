@@ -21,9 +21,9 @@ Entregar **insights acionáveis diários** através de **UM agente consolidador*
 
 ### **Frontend: 4 Páginas Essenciais**
 1. **🏠 Dashboard Operacional** - Status agente + métricas básicas
-2. **👥 Gestão Clientes** - Lista + CRUD simples (máx 10 clientes)
+2. **👥 Gestão Clientes** - Lista + CRUD simples 
 3. **🔗 Setup Integrações** - Configurar 6 APIs core
-4. **🎯 Dashboard Cliente** - Interface final para médicos (✅ já implementado)
+4. **🎯 Dashboard Cliente** - Interface final para médicos 
 
 ### **Stack Técnico Frontend:**
 - **React 18.3.1** - Biblioteca JavaScript para interfaces
