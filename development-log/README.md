@@ -28,11 +28,6 @@ Manter registro organizado de:
 - Estruturação da documentação MVP
 - Consolidação de fontes de informação
 
-### **Próximos Passos:**
-- Implementar frontend simplificado (4 páginas)
-- Desenvolver Agente Consolidador GPT-4
-- Configurar integrações core (6 APIs)
-
 ---
 
 *Atualizado: 25 Junho 2025*
