@@ -1,0 +1,40 @@
+📋 RESUMO DAS MODIFICAÇÕES - CORREÇÃO F5
+
+🎯 PROBLEMA: Perda de estado após refresh (F5)
+✅ SOLUÇÃO: Persistência inteligente com localStorage
+
+📦 ARQUIVOS CRIADOS:
+• src/hooks/usePersistence.ts (NOVO)
+
+📝 ARQUIVOS MODIFICADOS:
+• src/hooks/useDashboard.ts (+ persistência)
+• src/pages/Dashboard.tsx (+ recuperação)
+
+🔧 BACKUP REALIZADO EM:
+• C:\Users\Skul\Desktop\Backup_Fix_Persistencia_F5_27_06_2025\
+
+⚡ PRINCIPAIS MUDANÇAS:
+
+1️⃣ Hook usePersistence.ts:
+   - Salva/recupera status do agente
+   - Salva/recupera última atualização  
+   - Salva/recupera sync dos clientes
+   - TTL automático (expiração)
+
+2️⃣ Hook useDashboard.ts:
+   - useEffect para recuperar dados na inicialização
+   - Todas as funções de processamento salvam no localStorage
+   - Estados persistidos expostos no retorno
+
+3️⃣ Dashboard.tsx:
+   - Funções getEffectiveAgentStatus() e getEffectiveLastUpdate()
+   - Prioridade: Local > Persistido > Backend
+   - Indicadores visuais 💾 para dados persistidos
+
+🧵 TESTE RÁPIDO:
+1. Execute agente → veja "Ativo" e "Agora"
+2. Pressione F5 
+3. Dados devem permanecer com indicador 💾
+
+📚 DOCUMENTAÇÃO COMPLETA:
+Ver arquivo: CORREÇÃO_PERSISTENCIA_F5.md
