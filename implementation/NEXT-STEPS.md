@@ -8,7 +8,7 @@
 
 ## 🎯 **FUNCIONALIDADES PRIORIZADAS:**
 
-### **🔥 PRIORIDADE ALTA (para demonstrações):**
+### **🔥 PRIORIDADE ALTA :**
 
 #### **1. 📊 Dashboard Individual do Cliente**
 - **O que é:** Página completa quando clica "Ver Dashboard" em um cliente
@@ -65,7 +65,6 @@
 - **Complexidade:** 🟡 Média (3-5 dias)
 - **ROI:** Alto (valor operacional)
 
----
 
 ### **🏗️ PRIORIDADE BAIXA (para escala):**
 
@@ -84,79 +83,3 @@
 - **Complexidade:** 🟠 Alta (1-2 semanas)
 - **ROI:** Expansão do produto
 
----
-
-## 🎯 **RECOMENDAÇÃO IMEDIATA:**
-
-### **Implementar: Dashboard Individual do Cliente**
-
-**Por quê:**
-- ✅ Visual impactante para demonstrações
-- ✅ Usa funcionalidades já existentes
-- ✅ ROI imediato para vendas
-- ✅ Mostra valor real do produto
-
-**Escopo:**
-1. **Página ClientDashboard.tsx** com layout profissional
-2. **Métricas específicas** do cliente selecionado
-3. **Navegação** via botão "Ver Dashboard" existente
-4. **Gráficos básicos** usando Recharts
-5. **Insights mockados** (enquanto GPT-4 não está integrado)
-
-**Tempo estimado:** 2-3 dias
-**Arquivos principais:**
-- `src/pages/ClientDashboard.tsx`
-- `src/components/ClientMetrics.tsx`
-- `src/services/clientService.ts`
-- Rota no `App.tsx`
-
----
-
-## 🔧 **ESTRUTURA TÉCNICA SUGERIDA:**
-
-### **ClientDashboard.tsx Structure:**
-```typescript
-// Layout em 3 colunas:
-// - Coluna 1: KPIs principais (ROI, receita, pacientes)
-// - Coluna 2: Gráficos de performance (6 meses)
-// - Coluna 3: Insights e recomendações
-```
-
-### **Componentes necessários:**
-- `<ClientHeader />` - Nome, especialidade, status
-- `<MetricsGrid />` - Cards de KPIs principais
-- `<PerformanceChart />` - Gráfico histórico
-- `<IntegrationsStatus />` - Status das 6 integrações
-- `<InsightsPanel />` - Insights (mockados por enquanto)
-- `<ActionItems />` - Recomendações acionáveis
-
----
-
-## ❓ **DECISÃO ESTRATÉGICA:**
-
-**Qual funcionalidade implementar agora?**
-
-1. **📱 Dashboard Individual** - Impact visual alto
-2. **🤖 Insights GPT-4** - Core do valor SevenScale
-3. **📈 Métricas Reais** - Quick win técnico
-4. **🔧 Outra sugestão** - Sua preferência?
-
----
-
-## 📋 **CHECKLIST PARA PRÓXIMA IMPLEMENTAÇÃO:**
-
-### **Dashboard Individual do Cliente:**
-- [ ] Criar rota `/client/:id/dashboard`
-- [ ] Implementar `ClientDashboard.tsx`
-- [ ] Integrar com dados do cliente existente
-- [ ] Adicionar gráficos com Recharts
-- [ ] Mockar insights até GPT-4 estar pronto
-- [ ] Testar responsividade mobile
-- [ ] Integrar ao botão "Ver Dashboard"
-
----
-
-**🎯 Pronto para continuar o desenvolvimento!**
-
-*Momentum total estabelecido com card dinâmico funcionando.  
-Próximo passo: Dashboard Individual para demonstrações impactantes.*
