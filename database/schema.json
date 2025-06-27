@@ -1,0 +1,187 @@
+{
+  "database": {
+    "name": "SevenScale Health Dashboard",
+    "version": "1.0",
+    "platform": "Supabase PostgreSQL",
+    "schema": "public",
+    "created_at": "2025-06-25",
+    "author": "Bruno Monteiro - SevenScale"
+  },
+  "modules": {
+    "ai_agents": {
+      "description": "7 Agentes Impulso® Health + Execuções",
+      "tables": ["ai_agents", "agent_executions", "agent_insights"],
+      "views": ["vw_agent_analytics"]
+    },
+    "clients": {
+      "description": "Clínicas, Métricas e Performance",
+      "tables": ["clients", "client_metrics", "client_performance_history", "dashboard_metrics"],
+      "views": ["client_dashboard_view", "vw_client_performance", "vw_dashboard_overview", "vw_revenue_analytics"]
+    },
+    "integrations": {
+      "description": "Integrações APIs Externas",
+      "tables": ["integrations", "client_integrations", "integration_data", "integration_syncs"],
+      "views": ["vw_integration_health"]
+    },
+    "system": {
+      "description": "Logs e Configurações",
+      "tables": ["system_logs", "user_preferences"],
+      "views": []
+    }
+  },
+  "tables": {
+    "ai_agents": {
+      "description": "7 Agentes Impulso® Health",
+      "primary_key": "id",
+      "key_type": "bigint auto-increment",
+      "fields": {
+        "id": {"type": "bigint", "constraint": "PRIMARY KEY", "default": "auto-increment"},
+        "name": {"type": "text", "constraint": "NOT NULL"},
+        "agent_type": {"type": "text", "constraint": "NOT NULL"},
+        "status": {"type": "text", "default": "active"},
+        "performance": {"type": "integer", "default": "0"},
+        "last_execution": {"type": "timestamptz"},
+        "executions_today": {"type": "integer", "default": "0"},
+        "success_rate": {"type": "numeric", "default": "0.0"},
+        "config": {"type": "jsonb", "default": "{}"},
+        "created_at": {"type": "timestamptz", "default": "now()"},
+        "updated_at": {"type": "timestamptz", "default": "now()"}
+      },
+      "relationships": {
+        "agent_executions": "ai_agents.id → agent_executions.agent_id",
+        "system_logs": "ai_agents.id → system_logs.agent_id"
+      }
+    },
+    "agent_executions": {
+      "description": "Histórico execuções dos agentes",
+      "primary_key": "id",
+      "key_type": "bigint auto-increment",
+      "fields": {
+        "id": {"type": "bigint", "constraint": "PRIMARY KEY", "default": "auto-increment"},
+        "agent_id": {"type": "bigint", "constraint": "FOREIGN KEY"},
+        "client_id": {"type": "bigint", "constraint": "FOREIGN KEY"},
+        "execution_date": {"type": "timestamptz", "default": "now()"},
+        "duration_ms": {"type": "integer"},
+        "status": {"type": "text"},
+        "tokens_used": {"type": "integer"},
+        "insights_generated": {"type": "integer"},
+        "execution_details": {"type": "jsonb", "default": "{}"},
+        "created_at": {"type": "timestamptz", "default": "now()"}
+      },
+      "foreign_keys": {
+        "agent_id": "ai_agents.id",
+        "client_id": "clients.id"
+      }
+    },
+    "agent_insights": {
+      "description": "Insights gerados pelos agentes",
+      "primary_key": "id",
+      "key_type": "uuid auto-generated",
+      "fields": {
+        "id": {"type": "uuid", "constraint": "PRIMARY KEY", "default": "uuid_generate_v4()"},
+        "client_id": {"type": "bigint", "constraint": "NOT NULL, FK"},
+        "agent_type": {"type": "varchar(50)", "default": "mvp-consolidator"},
+        "insights_data": {"type": "jsonb", "constraint": "NOT NULL"},
+        "processed_at": {"type": "timestamptz", "default": "now()"},
+        "status": {"type": "varchar(20)", "default": "completed"},
+        "created_at": {"type": "timestamptz", "default": "now()"}
+      },
+      "foreign_keys": {
+        "client_id": "clients.id"
+      }
+    },
+    "clients": {
+      "description": "Clínicas e médicos - Tabela central",
+      "primary_key": "id",
+      "key_type": "bigint auto-increment",
+      "fields": {
+        "id": {"type": "bigint", "constraint": "PRIMARY KEY", "default": "auto-increment"},
+        "name": {"type": "text", "constraint": "NOT NULL"},
+        "specialty": {"type": "text", "constraint": "NOT NULL"},
+        "email": {"type": "text", "constraint": "NOT NULL"},
+        "phone": {"type": "text"},
+        "city": {"type": "text"},
+        "status": {"type": "text", "default": "operational"},
+        "performance": {"type": "integer", "default": "0"},
+        "revenue": {"type": "text"},
+        "patients": {"type": "integer", "default": "0"},
+        "plan": {"type": "text", "default": "pro"},
+        "created_at": {"type": "timestamptz", "default": "now()"},
+        "updated_at": {"type": "timestamptz", "default": "now()"}
+      },
+      "relationships": {
+        "connects_to": ["agent_executions", "agent_insights", "client_integrations", "client_metrics", "client_performance_history", "dashboard_metrics", "integration_data", "integrations", "system_logs"]
+      }
+    },
+    "client_integrations": {
+      "description": "Status integrações por cliente",
+      "primary_key": "id",
+      "key_type": "uuid auto-generated",
+      "fields": {
+        "id": {"type": "uuid", "constraint": "PRIMARY KEY", "default": "uuid_generate_v4()"},
+        "client_id": {"type": "bigint", "constraint": "NOT NULL, FK"},
+        "integration_type": {"type": "varchar(50)", "constraint": "NOT NULL"},
+        "status": {"type": "varchar(20)", "default": "disconnected"},
+        "credentials": {"type": "jsonb"},
+        "last_sync": {"type": "timestamptz"},
+        "error_message": {"type": "text"},
+        "created_at": {"type": "timestamptz", "default": "now()"},
+        "updated_at": {"type": "timestamptz", "default": "now()"}
+      },
+      "foreign_keys": {
+        "client_id": "clients.id"
+      }
+    },
+    "system_logs": {
+      "description": "Logs do sistema",
+      "primary_key": "id",
+      "key_type": "bigint auto-increment",
+      "fields": {
+        "id": {"type": "bigint", "constraint": "PRIMARY KEY", "default": "auto-increment"},
+        "log_type": {"type": "text", "constraint": "NOT NULL"},
+        "message": {"type": "text", "constraint": "NOT NULL"},
+        "details": {"type": "jsonb", "default": "{}"},
+        "client_id": {"type": "bigint", "constraint": "FOREIGN KEY"},
+        "agent_id": {"type": "bigint", "constraint": "FOREIGN KEY"},
+        "created_at": {"type": "timestamptz", "default": "now()"}
+      },
+      "foreign_keys": {
+        "client_id": "clients.id",
+        "agent_id": "ai_agents.id"
+      }
+    }
+  },
+  "views": {
+    "client_dashboard_view": {
+      "description": "Dashboard consolidado do cliente",
+      "purpose": "Cards dos clientes no dashboard principal",
+      "returns": ["id", "clinic_name", "specialty", "city", "status", "performance", "revenue", "patients", "total_integrations", "active_integrations", "latest_status", "last_insight_at", "roi_percent"],
+      "joins": ["clients", "client_integrations", "agent_insights"],
+      "frontend_usage": "Dashboard principal, cards de overview"
+    },
+    "vw_agent_analytics": {
+      "description": "Analytics dos 7 Agentes Impulso®",
+      "purpose": "Monitoramento performance dos agentes IA",
+      "returns": ["id", "name", "agent_type", "status", "performance", "executions_today", "success_rate", "executions_24h", "avg_duration_ms", "successful_executions_24h", "last_execution"],
+      "joins": ["ai_agents", "agent_executions"],
+      "frontend_usage": "Dashboard de agentes, métricas IA"
+    }
+  },
+  "integrations": {
+    "supported_types": [
+      "google_calendar",
+      "calendly", 
+      "hubspot_crm",
+      "google_ads",
+      "meta_ads",
+      "whatsapp_business",
+      "google_analytics"
+    ],
+    "data_flow": {
+      "collection": "integration_data table stores raw API data",
+      "processing": "7 AI Agents process integration data",
+      "insights": "agent_insights table stores processed insights",
+      "dashboard": "Views consolidate data for frontend"
+    }
+  }
+}
