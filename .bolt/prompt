@@ -1,0 +1,75 @@
+CONTEXT: I'm the founder of SevenScale, a premium consulting company specializing in automation and AI solutions for CLINICS AND MEDICAL OFFICES. I'm building a proprietary dashboard platform to differentiate my consultancy, increase average ticket (R$ 15-25k/month), and maximize client LTV (24+ months retention).
+
+BUSINESS STRATEGY:
+- Premium healthcare consultancy positioning (top 1% medical marketing)
+- Dashboard as competitive moat and price justification for medical practices
+- Focus on patient acquisition, appointment optimization, and practice growth analytics
+- Data-driven insights specific to medical practice management
+- Professional platform that justifies premium pricing for healthcare specialization
+
+DASHBOARD CORE PURPOSE:
+- Internal analytics for elevated medical practice consulting
+- Medical professionals access to their patient acquisition metrics 24/7
+- ROI demonstration for medical marketing investments
+- Automated insights and recommendations for practice growth
+- Healthcare-specific upsell opportunities through specialized data analysis
+
+TECHNICAL STACK:
+React 18.3.1 + TypeScript 5.5.3 + Vite 5.4.2 + Tailwind CSS 3.4.1 + Lucide React 0.344.0 + Recharts for data visualization
+- JSX with TypeScript for type safety
+- Tailwind for utility-first styling
+- Lucide React for consistent professional icons
+- Recharts for all charts and data visualizations (Bar charts, Line charts, Funnels, Scatter plots)
+- Responsive design (desktop-first for medical office environments)
+- Performance-optimized builds with Vite
+
+DESIGN PHILOSOPHY:
+Create premium, data-rich interfaces that communicate expertise and justify high-value consulting fees. Every component should feel like enterprise-grade software that clients would pay thousands for access to.
+
+ESSENTIAL COMPONENTS FOR MEDICAL PRACTICE DASHBOARDS:
+- Patient acquisition funnel (leads → appointments → consultations → retention)
+- Medical practice ROI metrics and cost per patient acquisition
+- Appointment scheduling optimization and no-show reduction analytics
+- Patient lifetime value and retention analysis for medical practices
+- Healthcare marketing channel performance (Google Ads, medical directories, referrals)
+- Practice growth indicators and capacity utilization metrics
+- Medical compliance and patient satisfaction tracking integration
+- Automated insights for practice management optimization
+
+PREFERRED LUCIDE ICONS:
+TrendingUp, BarChart3, DollarSign, Target, Zap, Brain, Users, Settings, Activity, ArrowUpRight, CheckCircle, AlertTriangle, Calendar, Clock, Download, Eye, Filter, RefreshCw, Search, Bell, Heart, Stethoscope, UserCheck, Phone, MessageSquare
+
+COLOR SCHEME (Premium B2B):
+- Primary: #2563eb (professional blue)
+- Secondary: #1f2937 (dark gray for text)
+- Success: #10b981 (green for positive metrics)
+- Warning: #f59e0b (amber for attention areas)
+- Background: #f8fafc (light gray)
+- Cards: #ffffff with subtle shadows
+
+DASHBOARD-SPECIFIC REQUIREMENTS:
+- Medical practice metric cards with clear value propositions (patient ROI, acquisition costs, practice growth)
+- Healthcare-specific charts showing patient acquisition funnels and retention rates
+- Before/after comparisons showing SevenScale impact on medical practice performance
+- Medical practice forecast and growth projection components
+- Professional medical data tables with patient flow and appointment analytics
+- Mobile-responsive but desktop-optimized for medical office environments
+- LGPD-compliant design considerations for medical data privacy
+- Loading states and smooth animations for premium healthcare software feel
+
+USER EXPERIENCE PRIORITIES:
+- Instant value recognition (client sees ROI immediately)
+- Drill-down capabilities for detailed analysis
+- Export/sharing features for client presentations
+- Clean navigation that doesn't overwhelm with data
+- Progressive disclosure of complex information
+- Speed and performance (no lag in data visualization)
+
+AVOID:
+- Consumer-focused or playful designs
+- Cluttered layouts that diminish professional credibility
+- Generic dashboard templates
+- Poor data visualization that confuses rather than clarifies
+- Slow-loading components that break the premium experience
+
+GOAL: Every interface should make medical professionals think "This specialized healthcare solution is worth the premium I'm paying" and "I need to maintain this partnership to keep growing my medical practice with these insights."

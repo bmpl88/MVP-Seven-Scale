@@ -1,0 +1,40 @@
+Bruno, aqui estão todos os endpoints que o backend tem disponível:
+🤖 AGENT ENDPOINTS (/api/v1/agent/)
+
+✅ POST /api/v1/agent/process/:clientId - Processar cliente específico
+✅ GET /api/v1/agent/insights/:clientId - Obter insights de um cliente
+✅ POST /api/v1/agent/process-all - Processar todos os clientes
+✅ GET /api/v1/agent/status - Status do agente consolidador
+✅ GET /api/v1/agent/insights - Listar todos os insights recentes
+✅ DELETE /api/v1/agent/insights/:insightId - Deletar insight
+✅ POST /api/v1/agent/test - Teste do agente (sem salvar)
+✅ POST /api/v1/agent/seed-data - Criar dados simulados
+
+📊 DASHBOARD ENDPOINTS (/api/v1/dashboard/)
+
+✅ GET /api/v1/dashboard/overview - Visão geral do dashboard
+✅ GET /api/v1/dashboard/metrics - Métricas do dashboard
+✅ GET /api/v1/dashboard/alerts - Alertas do sistema
+✅ GET /api/v1/dashboard/health - Saúde do sistema
+✅ GET /api/v1/dashboard/recent-activity - Atividade recente
+
+📈 ANALYTICS ENDPOINTS (/api/v1/analytics/)
+
+✅ GET /api/v1/analytics/dashboard - Dados de analytics
+✅ GET /api/v1/analytics/clients/performance - Performance dos clientes
+✅ GET /api/v1/analytics/specialties/roi - ROI por especialidade
+✅ GET /api/v1/analytics/funnel - Dados do funil
+✅ GET /api/v1/analytics/agents/performance - Performance dos agentes
+✅ GET /api/v1/analytics/integrations/metrics - Métricas das integrações
+✅ GET /api/v1/analytics/revenue/evolution - Evolução de receita
+✅ GET /api/v1/analytics/export - Exportar dados
+
+👥 CLIENTS ENDPOINTS (/api/v1/clients/)
+
+✅ GET /api/v1/clients - Listar clientes
+✅ GET /api/v1/clients/summary - Resumo dos clientes
+✅ GET /api/v1/clients/:id - Cliente específico
+✅ POST /api/v1/clients - Criar cliente
+✅ PUT /api/v1/clients/:id - Atualizar cliente
+✅ DELETE /api/v1/clients/:id - Deletar cliente
+✅ GET /api/v1/clients/:id/metrics - Métricas do cliente
