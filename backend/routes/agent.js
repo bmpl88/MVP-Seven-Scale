@@ -5,12 +5,11 @@
  */
 
 import express from 'express';
-import { AgentConsolidator } from '../services/agentConsolidator.js';
+import { consolidatorAgent } from '../services/consolidatorAgent.js';
 import { dbService } from '../lib/database.js';
 import logger from '../lib/logger.js';
 
 const router = express.Router();
-const agent = new AgentConsolidator();
 
 /**
  * @route POST /api/v1/agent/process/:clientId
@@ -27,7 +26,7 @@ router.post('/process/:clientId', async (req, res) => {
     logger.info(`🤖 Starting optimized agent processing for client: ${clientId}`);
     
     // ✅ Usar método otimizado para cliente único
-    const result = await agent.processSingleClient(clientId);
+    const result = await consolidatorAgent.processSingleClient(clientId);
     
     res.json({
       success: true,
@@ -35,7 +34,7 @@ router.post('/process/:clientId', async (req, res) => {
       insights: result.insights,
       processedAt: result.processedAt,
       message: 'Insights generated successfully (optimized)',
-      config: agent.getConfig()
+      config: consolidatorAgent.getAgentStatus()
     });
     
   } catch (error) {
@@ -101,21 +100,21 @@ router.post('/process-all', async (req, res) => {
   try {
     logger.info('🚀 Starting OPTIMIZED batch processing (max 2 clients, sequential)');
     
-    const results = await agent.processAllClients();
+    const results = await consolidatorAgent.processAllClients();
     
     const summary = {
       success: true,
-      totalClients: results.length,
-      processed: results.filter(r => r.success).length,
-      failed: results.filter(r => !r.success).length,
+      totalClients: results.total,
+      processed: results.processed,
+      failed: results.failed,
       processedAt: new Date().toISOString(),
-      config: agent.getConfig(),
-      mode: 'optimized-sequential'
+      config: consolidatorAgent.getAgentStatus(),
+      mode: 'consolidator-gpt4'
     };
     
     res.json({
       ...summary,
-      results
+      results: results.results || []
     });
     
   } catch (error) {
@@ -146,22 +145,14 @@ router.get('/status', async (req, res) => {
       insight.processed_at.startsWith(today)
     );
     
-    // ✅ Status otimizado
-    const config = agent.getConfig();
+    // ✅ Status consolidado do agente
+    const agentStatus = consolidatorAgent.getAgentStatus();
     const status = {
-      agent_status: 'active-optimized',
-      mode: 'sequential-processing',
+      ...agentStatus,
       last_processing: recentInsights[0]?.processed_at || null,
       insights_today: todayInsights.length,
       total_insights: recentInsights.length,
-      openai_configured: !!process.env.OPENAI_API_KEY,
-      supabase_connected: true,
-      // ✅ Configurações otimizadas
-      max_concurrent_clients: config.MAX_CONCURRENT_CLIENTS,
-      max_clients_total: config.MAX_CLIENTS_TOTAL,
-      processing_delay: config.PROCESSING_DELAY,
-      authorized_clients: config.TEST_CLIENT_IDS,
-      version: config.version
+      supabase_connected: true
     };
     
     res.json({
@@ -269,17 +260,20 @@ router.post('/test', async (req, res) => {
     const { clientId = '1' } = req.body;
     
     // ✅ Verificar se é cliente autorizado
-    const config = agent.getConfig();
-    if (!config.TEST_CLIENT_IDS.includes(clientId)) {
+    const agentStatus = consolidatorAgent.getAgentStatus();
+    const activeClients = consolidatorAgent.getActiveClients();
+    const clientExists = activeClients.find(c => c.id === clientId);
+    
+    if (!clientExists) {
       return res.status(400).json({
         success: false,
-        error: `Cliente ${clientId} não autorizado para teste`,
-        authorizedClients: config.TEST_CLIENT_IDS
+        error: `Cliente ${clientId} não encontrado`,
+        availableClients: activeClients.map(c => ({ id: c.id, name: c.name }))
       });
     }
     
-    const consolidatedData = await agent.collectClientData(clientId);
-    const insights = await agent.generateInsights(consolidatedData);
+    const consolidatedData = await consolidatorAgent.collectAllAPIsData(clientId);
+    const insights = await consolidatorAgent.generateMedicalInsights(consolidatedData);
     
     res.json({
       success: true,
@@ -287,7 +281,7 @@ router.post('/test', async (req, res) => {
       clientId,
       consolidatedData,
       insights,
-      config: config,
+      config: agentStatus,
       timestamp: new Date().toISOString()
     });
     
@@ -316,7 +310,7 @@ router.post('/seed-data', async (req, res) => {
     res.json({
       success: true,
       message: 'Agent data seeded successfully (optimized)',
-      config: agent.getConfig(),
+      config: consolidatorAgent.getAgentStatus(),
       timestamp: new Date().toISOString()
     });
     
@@ -336,7 +330,7 @@ router.post('/seed-data', async (req, res) => {
  */
 router.get('/config', async (req, res) => {
   try {
-    const config = agent.getConfig();
+    const config = consolidatorAgent.getAgentStatus();
     
     res.json({
       success: true,
@@ -374,7 +368,7 @@ router.post('/process-single', async (req, res) => {
     
     logger.info(`🎯 Processing single client via dedicated endpoint: ${clientId}`);
     
-    const result = await agent.processSingleClient(clientId);
+    const result = await consolidatorAgent.processSingleClient(clientId);
     
     res.json({
       success: true,
