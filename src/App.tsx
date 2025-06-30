@@ -4,12 +4,13 @@ import { AuthProvider } from './context/AuthContext';
 import { ApiProvider } from './context/ApiContext';
 import { DashboardProvider } from './context/DashboardContext';
 import Layout from './components/Layout';
-import Dashboard from './pages/Dashboard';
+import DashboardAdmin from './pages/DashboardAdmin';
 import Clients from './pages/Clients';
 import Integrations from './pages/Integrations';
 import ClientAccess from './pages/ClientAccess';
 import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
+import ClientDashboard from './pages/ClientDashboard';
 
 function App() {
   return (
@@ -21,18 +22,25 @@ function App() {
               {/* Rota de autenticação */}
               <Route path="/login" element={<Login />} />
               
-              {/* Rotas protegidas */}
+              {/* Rotas protegidas - Admin SevenScale */}
               <Route path="/" element={
                 <ProtectedRoute>
                   <Layout />
                 </ProtectedRoute>
               }>
                 <Route index element={<Navigate to="/dashboard" replace />} />
-                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="dashboard" element={<DashboardAdmin />} />
                 <Route path="clientes" element={<Clients />} />
                 <Route path="integracoes" element={<Integrations />} />
                 <Route path="cliente" element={<ClientAccess />} />
               </Route>
+              
+              {/* Rota para Dashboard Individual do Cliente */}
+              <Route path="/client/:clientId/dashboard" element={
+                <ProtectedRoute>
+                  <ClientDashboard />
+                </ProtectedRoute>
+              } />
             </Routes>
           </Router>
         </DashboardProvider>
